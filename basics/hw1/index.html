@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Loading, please wait...</p>
+    <script>
+        const n = Math.floor(Math.random() * 1000);
+        console.log('Загаданное число:', n)
+        while (true) {
+            const MyNumber = prompt('Введите число от 0 до 999')
+            console.log('Я загадал:', MyNumber)
+            if (isNaN(MyNumber) || MyNumber === '') {
+                alert('Вы ввели нечисловое значение!')
+            } else if (MyNumber === null) {
+                alert('Куда это ты собрался? Угадывай!')
+            } else if (MyNumber < 0 || MyNumber > 999) {
+                alert('Вы ввели число, выходящее за рамки условий!')
+            } else if (+MyNumber === n) {
+                alert('Вы угадали! Для перезапуска игры обновите страницу!')
+                break
+            } else if (MyNumber > n) {
+                alert('Вы не угадали! Искомое число меньше!')
+            } else 
+                alert('Вы не угадали! Искомое число больше!')
+        }
+    </script>
+</body>
+</html>
