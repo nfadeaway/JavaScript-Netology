@@ -14,7 +14,9 @@
         while (true) {
             const MyNumber = prompt('Введите число от 0 до 999')
             console.log('Я загадал:', MyNumber)
-            if (isNaN(MyNumber) || MyNumber === '') {
+            if (MyNumber === 'q') {
+                break
+            } else if (isNaN(MyNumber) || MyNumber === '') {
                 alert('Вы ввели нечисловое значение!')
             } else if (MyNumber === null) {
                 alert('Куда это ты собрался? Угадывай!')
