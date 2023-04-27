@@ -55,6 +55,7 @@ class GoodList {
                 return
             }
         }
+        console.log('Такого товара не существует')
     }
 }
 
@@ -93,6 +94,7 @@ class Basket {
                 return
             }
         }
+        console.log('Такого товара не существует')
     }
 
     clear() {
@@ -123,9 +125,10 @@ class Basket {
 
 // let goodList1 = new GoodList([good1, good2, good3], /а/i, true, true)
 // let goodList1 = new GoodList([good1, good2, good3], /а/i, true, false)
-// // let goodList1 = new GoodList([good1, good2, good3], /а/i, false, false)
+// let goodList1 = new GoodList([good1, good2, good3], /а/i, false, false)
 // goodList1.add(good4)
 // goodList1.add(good5)
+// goodList1.remove(6)
 // console.log(goodList1.list)
 
 
