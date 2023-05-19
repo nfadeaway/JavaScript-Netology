@@ -4,6 +4,9 @@ const links = document.querySelectorAll('a')
 for (let menuSub of menuSubs) {
   menuSub.onclick = function() {
     const currentMenuSub = menuSub.querySelector('.menu_sub')
+    if (currentMenuSub == null) {
+      return
+    }
     const currentMenu = menuSub.closest('.menu')
     if (currentMenuSub.className.includes('menu_active')) {
       currentMenuSub.className = 'menu menu_sub'
