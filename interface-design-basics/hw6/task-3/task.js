@@ -5,8 +5,19 @@ const body = document.querySelector('body')
 
 window.addEventListener('load', e => {
   if (localStorage.getItem('cartProducts')) {
-    cartProducts.innerHTML += localStorage.getItem('cartProducts')
-    localStorage.clear()
+    const productsObj = JSON.parse(localStorage.getItem('cartProducts'))
+    if (productsObj) {
+      for (let key in productsObj) {
+        cartProducts.innerHTML += `
+        <div class="cart__product" data-id="${productsObj[key]['id']}">
+          <img class="cart__product-image" src="${productsObj[key]['img']}">
+          <div class="cart__product-count">${productsObj[key]['count']}</div>
+          <div class="cart__product-remove">&times;</div>
+        </div>
+        `
+      } 
+    }
+    localStorage.removeItem('cartProducts')
     if (document.querySelector('.cart__product')) {
       cart.style.display = 'block'
     }
@@ -14,7 +25,19 @@ window.addEventListener('load', e => {
 })
 
 window.addEventListener('unload', e => {
-  localStorage.setItem('cartProducts', cartProducts.innerHTML)
+  const products = document.querySelectorAll('.cart__product')
+  let productsObj = {}
+  let i = 0
+  if (products) {
+    for (const product of products) {
+      productsObj[product.dataset.id] = {
+        id: product.dataset.id,
+        img: product.querySelector('img').src,
+        count: product.querySelector('.cart__product-count').textContent.trim(),
+      }
+    }
+    localStorage.setItem('cartProducts', JSON.stringify(productsObj))
+  }
 })
 
 for (const product of products) {
@@ -79,11 +102,8 @@ function getCartProductAnimation(e) {
   let stepCounter = 0
 
   const moveTimer = setInterval(() => {
-    console.log('АЛО') 
     copyProductImg.style.top = parseFloat(copyProductImg.style.top) - stepY + 'px'
-    console.log(copyProductImg.style.top + stepY)
     copyProductImg.style.left = parseFloat(copyProductImg.style.left) + stepX + 'px'
-    console.log(copyProductImg.style.left + stepX)
     stepCounter++
     if (stepCounter === 10) {
      clearInterval(moveTimer)
