@@ -7,8 +7,8 @@ buttonTaskAdd.addEventListener('click', e => {
   if (taskInput.value) {
     addTask()
     taskInput.value = ''
-    e.preventDefault()
   }
+  e.preventDefault()
 })
 
 tasksList.addEventListener('click', e => {
@@ -19,13 +19,28 @@ tasksList.addEventListener('click', e => {
 
 window.addEventListener('load', e => {
   if (localStorage.getItem('tasks')) {
-    tasksList.innerHTML += localStorage.getItem('tasks')
-    localStorage.clear()
+    const tasks = localStorage.getItem('tasks')
+    for (const task of tasks.split(' ,')) {
+      tasksList.innerHTML += `
+      <div class="task">
+        <div class="task__title">${task.trim()}</div>
+        <a href="#" class="task__remove">&times;</a>
+      </div>  
+    `
+    }
+    localStorage.removeItem(tasks)
   }
 })
 
 window.addEventListener('unload', e => {
-  localStorage.setItem('tasks', tasksList.innerHTML)
+  let tasks = []
+  if (tasksList.querySelectorAll('.task__title')) {
+    for (const task of tasksList.querySelectorAll('.task__title')) {
+      tasks.push(task.textContent.trim() + ' ')
+    }
+  }
+
+  localStorage.setItem('tasks', tasks)
 })
 
 function addTask() {
